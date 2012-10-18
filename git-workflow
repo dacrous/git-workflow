@@ -1,0 +1,152 @@
+************************
+*** Release branches ***
+************************
+
+
+May branch off from: develop
+Must merge back into: develop and master
+Branch naming convention: release-*
+Tag message convention:     ** Release XX ** + short message describing new features
+
+
+=========================
+ Create a release branch
+=========================
+
+    $ git checkout -b release-1.2 develop
+        Switched to a new branch "release-1.2"
+
+    $ ./bump-version.sh 1.2
+        Files modified successfully, version bumped to 1.2.
+
+    $ make
+
+    $ git commit -a -m "Bump version number to 1.2"
+        [release-1.2 74d9424] Bump version number to 1.2
+        1 files changed, 1 insertions(+), 1 deletions(-)
+
+=========================
+ Finish a release branch
+=========================
+
+  0. IMPORTANT!: Check that all files have been committed and 
+     the source code compiles.
+
+
+  1. Merge with master
+
+    $ git checkout master
+
+        Switched to branch 'master'
+
+    $ git merge --no-ff release-1.2
+        Merge made by recursive.
+        (Summary of changes)
+
+    $ git tag -a 1.2
+
+
+  2. Merge with develop
+
+    $ git checkout develop
+        Switched to branch 'develop'
+
+    $ git merge --no-ff release-1.2
+        Merge made by recursive.
+        (Summary of changes)
+
+
+  3. Push branch and tag to origin
+
+    $ git push origin release-1.2
+        Total 0 (delta 0), reused 0 (delta 0)
+        To origin
+        * [new branch]      release-1.2 -> release-1.2
+
+    $ git push origin --tags 
+        Counting objects: 1, done.
+        Writing objects: 100% (1/1), 233 bytes, done.
+        Total 1 (delta 0), reused 0 (delta 0)
+        Unpacking objects: 100% (1/1), done.
+        To origin
+        * [new tag]         1.2 -> 1.2
+
+    $ git branch -d release-1.2
+        Deleted branch release-1.2 (was ff452fe).
+
+
+************************
+*** Hotfix branches  ***
+************************
+
+
+May branch off from: master
+Must merge back into: develop and master
+Branch naming convention: hotfix-*
+Tag message convention:     ** Hotfix XX ** + short message describing hotfix
+
+
+=========================
+ Create a hotfix branch
+=========================
+
+    $ git checkout -b hotfix-1.2.1 master
+        Switched to a new branch "hotfix-1.2.1"
+
+    $ ./bump-version.sh 1.2.1
+        Files modified successfully, version bumped to 1.2.1.
+
+    $ make
+
+    $ git commit -a -m "Bump version number to 1.2.1"
+        [hotfix-1.2.1 41e61bb] Bump version number to 1.2.1
+        1 files changed, 1 insertions(+), 1 deletions(-)
+
+=========================
+ Finish a hotfix branch
+=========================
+
+  0. IMPORTANT!: Check that all files have been committed and 
+     the source code compiles.
+
+
+  1. Merge with master
+
+    $ git checkout master
+
+        Switched to branch 'master'
+
+    $ git merge --no-ff hotfix-1.2.1
+        Merge made by recursive.
+        (Summary of changes)
+
+    $ git tag -a 1.2.1
+
+
+  2. Merge with develop
+
+    $ git checkout develop
+        Switched to branch 'develop'
+
+    $ git merge --no-ff hotfix-1.2.1
+        Merge made by recursive.
+        (Summary of changes)
+
+
+  3. Push branch and tag to origin
+
+    $ git push origin hotfix-1.2.1
+        Total 0 (delta 0), reused 0 (delta 0)
+        To origin
+        * [new branch]      hotfix-1.2.1 -> hotfix-1.2.1
+
+    $ git push origin --tags 
+        Counting objects: 1, done.
+        Writing objects: 100% (1/1), 233 bytes, done.
+        Total 1 (delta 0), reused 0 (delta 0)
+        Unpacking objects: 100% (1/1), done.
+        To origin
+        * [new tag]         1.2.1 -> 1.2.1
+
+    $ git branch -d hotfix-1.2.1
+        Deleted branch hotfix-1.2.1 (was ff452fe).
